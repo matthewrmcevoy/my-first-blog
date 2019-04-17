@@ -1,0 +1,19 @@
+<div>
+    <h1><a href="/">Test Blog</a></h1>
+</div>
+
+{% for post in posts %}
+    <div>
+        <h2><a href="">{{ post.title }}</a></h2>
+        <p>{{ post.body|linebreaksbr }}</p>
+        <p>published: {{ post.published_date }}</p>
+        <h1>Comments</h1>
+        {% for comment in post.comments.all %}
+        <div id="comments">
+        	user:{{comment.author}}
+        	<p>{{ comment.body|linebreaksbr }}</p>
+        	<p>posted: {{ comment.comment_date}}</p>
+        </div>
+        {% endfor %}
+    </div>
+{% endfor %}

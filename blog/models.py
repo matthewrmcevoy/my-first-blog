@@ -19,10 +19,14 @@ class Post(models.Model):
 		return self.title
 
 class Comment(models.Model):
-	post = models.ForeignKey(Post, on_delete=models.CASCADE)
+	post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
 	author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	body = models.TextField()
 	comment_date = models.DateTimeField(default=timezone.now)
 
-	def __str__(self):
-			return self.author
+	def comment(self):
+		self.comment_date = timezone.now()
+		self.save()
+
+	def __datetime__(self):
+			return self.comment_date
