@@ -1,19 +1,79 @@
-<div>
-    <h1><a href="/">Test Blog</a></h1>
+{% load static %}
+<head>
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+</head>
+<body>
+{% if not user.username %}
+<div id="logins">
+	<form method="POST" id="login">
+Login:<input type="text" name="username" value="username"><input type="password" name="password" value="password">
+{% csrf_token %}
+<button type="submit" name='submit' value='Login'>Login</button>
+</form>
+</div>
+{% endif %}
+
+<div id="landingLogo">
+	<span id="logo">MATTHEW/MCEVOY</span>
+	<span id="profileLinks"><a href=""><img src=/static/images/GitHub-Mark-Light-64px.png style="width:32px;height:32px;"></a><a href=""><img src=/static/images/so-icon.png style="width:32px;height:32px;"></a><a href="https://codepen.io/matthewrmcevoy/"><img src=/static/images/Button-White-small.png style="width:32px;height:32px;"></a></span>
+	<span id="scrollDown"><button onclick="downFunc()" id="scrollDown1" title="Next Section"><img src=/static/images/ScrollDown.png></button></span>
+</div>
+<div id="portfolio">
+	<div id="header">
+    	<span id="headers">about</span>
+    	<br><span id="body">My corner of the web.</span>
+	</div>
+	<span id="scrollDown"><button onclick="downFunc2()" id="scrollDown2" title="Next Section"><img src=/static/images/ScrollDown.png></button></span>
+</div>
+<div id="portfolio2">
+	<div id="header2">
+    	<span id="headers">Portfolio</span>
+    	<br><span id="body">My projects:</span><br>
+	</div>
+	<div id="container1">
+    		<div id="project1" class="projectContainer"><img src=/static/images/project1.png></div>
+    		<div id="project2" class="projectContainer"><span>Blog</span></div>
+    		<div id="project3" class="projectContainer"></div>
+    	</div>
+	<span id="scrollUp"><button onclick="topFunction()" id="scrollUp1" title="Back to Top"><img src=/static/images/ScrollUp.png></button></span>
+</div>
+<div id="side-nav">
+	<li onclick="topFunction()" id="first"></li>
+	<li onclick="downFunc()" id="second"></li>
+	<li onclick="downFunc2()" id="third"></li>
+	<div id="text1">
+		Landing
+	</div>
+	<div id="text2">
+		About
+	</div>
+	<div id="text3">
+		Portfolio
+	</div>
 </div>
 
-{% for post in posts %}
-    <div>
-        <h2><a href="">{{ post.title }}</a></h2>
-        <p>{{ post.body|linebreaksbr }}</p>
-        <p>published: {{ post.published_date }}</p>
-        <h1>Comments</h1>
-        {% for comment in post.comments.all %}
-        <div id="comments">
-        	user:{{comment.author}}
-        	<p>{{ comment.body|linebreaksbr }}</p>
-        	<p>posted: {{ comment.comment_date}}</p>
-        </div>
-        {% endfor %}
-    </div>
-{% endfor %}
+<script>
+document.getElementById("first").style.color = "#8fcfca";
+function downFunc(){
+	document.getElementById("first").style.color = '';
+	document.getElementById("second").style.color = "#8fcfca";
+	document.getElementById("third").style.color = '';
+	var element = document.getElementById("header");
+	element.scrollIntoView({ behavior: 'smooth'});
+}
+function downFunc2(){
+	document.getElementById("first").style.color = '';
+	document.getElementById("second").style.color = '';
+	document.getElementById("third").style.color = "#8fcfca";
+	var element = document.getElementById("header2");
+	element.scrollIntoView({ behavior: 'smooth'});
+}
+function topFunction() {
+	document.getElementById("first").style.color = "#8fcfca";
+	document.getElementById("second").style.color = '';
+	document.getElementById("third").style.color = '';
+	var element = document.getElementById("landingLogo");
+	element.scrollIntoView({behavior: 'smooth'});
+}
+</script>
+</body>

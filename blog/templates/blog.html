@@ -1,0 +1,28 @@
+<div id="blogContainer">
+{% for post in posts %}
+    <div id="postContainer">
+        <span id="title">{{ post.title }}</span> <span id="postDates">@ {{ post.published_date }}</span>
+        <p>{{ post.body|linebreaksbr }}</p>
+        Leave a reply:
+        </form>	
+        {% for comment in post.comments.all %}
+        <div id="comments">
+        	<hr>
+        	<p>{{comment.author}} @ {{ comment.comment_date}} commented:</p>
+        	<p>{{ comment.body|linebreaksbr }}</p>
+        </div>
+        {% endfor %}
+    </div>
+{% endfor %}
+</div>
+{% if user.username == 'matthewrmcevoy' %}
+        <div id="newPost">
+            {% block content %}
+            <h2>New post</h2>
+            <form action='' method="POST" class="post-form">{% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="save btn btn-default">Save</button>
+            </form>
+            {% endblock %}
+    {% endif %}
+        </div>
